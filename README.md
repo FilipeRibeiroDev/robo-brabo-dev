@@ -1,4 +1,4 @@
-CREATE TABLE "Enderecos" {
+CREATE TABLE "Enderecos" (
     "Id" serial,
     "CEP" VARCHAR(255),
     "Logradouro" VARCHAR(255),
@@ -6,4 +6,4 @@ CREATE TABLE "Enderecos" {
     "UF" VARCHAR(255),
     "Status" int,
     "Robo" VARCHAR(255)
-}
+);
