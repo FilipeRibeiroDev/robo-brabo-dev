@@ -53,6 +53,8 @@ namespace Application.Services
         {
             var domain = await _repository.ObterCepParaTratamento(roboo);
 
+            if (domain == null) return default;
+
             domain.Status = Domain.Enums.EnumStatus.EmAndamento;
             domain.Robo = roboo;
 
