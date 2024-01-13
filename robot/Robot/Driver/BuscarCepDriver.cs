@@ -1,5 +1,6 @@
 ﻿using EasyAutomationFramework;
 using OpenQA.Selenium;
+using OpenQA.Selenium.Chrome;
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -13,8 +14,48 @@ namespace Robot.Driver
     {
         public BuscarCepDriver() 
         {
-            StartBrowser();
+            this.StartBrowser();
         }
+
+        public EasyReturn.Web StartBrowser(TypeDriver typeDriver = TypeDriver.GoogleChorme, string pathCache = null)
+        {
+            try
+            {
+                switch (typeDriver)
+                {
+                    case TypeDriver.GoogleChorme:
+                        {
+                            var sc = ChromeDriverService.CreateDefaultService();
+                            sc.HideCommandPromptWindow = true;
+                            ChromeOptions c = new ChromeOptions();
+                            c.AddArgument("--start-maximized");
+                            c.AddArgument("--user-data-dir=~/.config/google-chrome");
+                            c.AddArgument("--headless");
+                            c.AddArgument("--no-sandbox");
+                            c.AddArgument("--disable-gpu");
+                            c.AddArgument("--ddisable-dev-shm-usage");
+                            driver = new ChromeDriver(sc, c);
+                            break;
+                        }
+                }
+
+                return new EasyReturn.Web
+                {
+                    driver = driver,
+                    Sucesso = true
+                };
+            }
+            catch (Exception ex)
+            {
+                return new EasyReturn.Web
+                {
+                    driver = driver,
+                    Sucesso = false,
+                    Error = ex.Message.ToString()
+                };
+            }
+        }
+
 
         public void BuscarCep(EnderecoModel endereco)
         {
